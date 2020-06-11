@@ -15,7 +15,7 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template').c
 
 var userDialogOpen = document.querySelector('.setup-open-icon');
 var userDialogClose = userDialog.querySelector('.setup-close');
-var userNameInput = document.querySelector('.setup-user-name');
+var userNameInput = userDialog.querySelector('.setup-user-name');
 
 var wizardSetup = document.querySelector('.setup-wizard-appearance');
 var wizardCoat = wizardSetup.querySelector('.wizard-coat');
@@ -131,5 +131,3 @@ userDialogOpen.addEventListener('keydown', function (evt) {
     openPopup();
   }
 });
-
-
