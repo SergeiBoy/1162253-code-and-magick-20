@@ -71,6 +71,7 @@ var onPopupCloseButtonPress = function () {
 
 var onPopupCloseButtonEnter = function (evt) {
   if (evt.key === 'Enter') {
+    evt.preventDefault();
     closePopup();
   }
 };
