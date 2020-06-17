@@ -30,8 +30,18 @@
         y: moveEvt.clientY
       };
 
-      userDialog.style.top = (userDialog.offsetTop - shift.y) + 'px';
-      userDialog.style.left = (userDialog.offsetLeft - shift.x) + 'px';
+      var userDialogStyleTop = ((userDialog.offsetTop - shift.y) < 0) ? 0 : (userDialog.offsetTop - shift.y);
+      if (userDialogStyleTop > (window.innerHeight - userDialog.offsetHeight)) {
+        userDialogStyleTop = window.innerHeight - userDialog.offsetHeight;
+      }
+      var userDialogStyleLeft = ((userDialog.offsetLeft - shift.x) < userDialog.offsetWidth / 2) ? (userDialog.offsetWidth / 2) : (userDialog.offsetLeft - shift.x);
+      if (userDialogStyleLeft > (window.innerWidth - userDialog.offsetWidth / 2)) {
+        userDialogStyleLeft = window.innerWidth - userDialog.offsetWidth / 2;
+      }
+      // Выше делим userDialog.offsetWidth пополам ввиду CSS свойства transform: translateX(-50%).
+
+      userDialog.style.top = userDialogStyleTop + 'px';
+      userDialog.style.left = userDialogStyleLeft + 'px';
     };
 
     var onMouseUp = function (upEvt) {
