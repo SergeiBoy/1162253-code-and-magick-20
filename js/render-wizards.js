@@ -2,13 +2,16 @@
 
 (function () {
   var WIZARD_QUANTITY = 4;
+  /*
   var wizards = [];
+  */
 
   var userDialog = document.querySelector('.setup');
   var similarElement = userDialog.querySelector('.setup-similar');
   var similarListElement = userDialog.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
+  /*
   var getRandomElement = function (array) {
     return array[Math.floor(Math.random() * array.length)];
   };
@@ -17,32 +20,39 @@
     for (var i = 0; i < WIZARD_QUANTITY; i++) {
       var wizard = {
         name: getRandomElement(window.wizardsDescription.FIRST_NAMES) + ' ' + getRandomElement(window.wizardsDescription.LAST_NAMES),
-        coatColor: getRandomElement(window.wizardsDescription.COAT_COLORS),
-        eyesColor: getRandomElement(window.wizardsDescription.EYES_COLORS),
+        colorCoat: getRandomElement(window.wizardsDescription.COAT_COLORS),
+        colorEyes: getRandomElement(window.wizardsDescription.EYES_COLORS),
       };
       wizards.push(wizard);
     }
   };
+  */
 
   var renderWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
 
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEeyes;
 
     return wizardElement;
   };
 
-  var renderWizads = function () {
+  var renderWizards = function (wizards) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < wizards.length; i++) {
+    for (var i = 0; i < WIZARD_QUANTITY; i++) {
       fragment.appendChild(renderWizard(wizards[i]));
     }
     similarListElement.appendChild(fragment);
+    similarElement.classList.remove('hidden');
   };
 
+  /*
   createWizards();
-  renderWizads();
-  similarElement.classList.remove('hidden');
+  renderWizards();
+  */
+
+  window.renderWizards = {
+    renderWizards: renderWizards,
+  };
 })();
