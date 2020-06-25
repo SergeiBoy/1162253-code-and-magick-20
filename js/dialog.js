@@ -9,6 +9,8 @@
   var userDialogInitialTop = userDialog.style.top;
   var userDialogInitialLeft = userDialog.style.left;
 
+  var form = userDialog.querySelector('.setup-wizard-form');
+
   var onPopupEscPress = function (evt) {
     if (evt.key === 'Escape' && (userNameInput !== document.activeElement)) {
       evt.preventDefault();
@@ -61,4 +63,28 @@
       openPopup();
     }
   });
+
+  var onError = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  window.backend.load(function (wizards) {
+    window.renderWizards.renderWizards(wizards);
+  }, onError);
+
+  var onFormSubmit = function (evt) {
+    window.backend.save(new FormData(form), function () {
+      userDialog.classList.add('hidden');
+    }, onError);
+    evt.preventDefault();
+  };
+  form.addEventListener('submit', onFormSubmit);
 })();
