@@ -77,7 +77,8 @@
   };
 
   window.backend.load(function (wizards) {
-    window.renderWizards.renderWizards(wizards);
+    window.loadedWizards = wizards;
+    window.renderWizards.sortWizards(wizards);
   }, onError);
 
   var onFormSubmit = function (evt) {
