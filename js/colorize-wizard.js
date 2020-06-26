@@ -16,11 +16,13 @@
     eyesColor: 'black',
   };
 
-  var sortWizardsOnCoatChange = window.debounce(function () {
+  var sortWizardsOnCoatChange = window.debounce(function (color) {
+    colors.coatColor = color;
     window.renderWizards.sortWizards(window.loadedWizards);
   });
 
-  var sortWizardsOnEyesChange = window.debounce(function () {
+  var sortWizardsOnEyesChange = window.debounce(function (color) {
+    colors.eyesColor = color;
     window.renderWizards.sortWizards(window.loadedWizards);
   });
 
@@ -28,18 +30,16 @@
     var pickedColor = window.wizardsDescription.COAT_COLORS[pickColor % window.wizardsDescription.COAT_COLORS.length];
     wizardCoat.style.fill = pickedColor;
     wizardCoatInput.value = pickedColor;
-    colors.coatColor = pickedColor;
     pickColor = (pickColor + 1) % 100;
-    sortWizardsOnCoatChange();
+    sortWizardsOnCoatChange(pickedColor);
   };
 
   var onWizardEyesPress = function () {
     var pickedColor = window.wizardsDescription.EYES_COLORS[pickColor % window.wizardsDescription.EYES_COLORS.length];
     wizardEyes.style.fill = pickedColor;
     wizardEyesInput.value = pickedColor;
-    colors.eyesColor = pickedColor;
     pickColor = (pickColor + 1) % 100;
-    sortWizardsOnEyesChange();
+    sortWizardsOnEyesChange(pickedColor);
   };
 
   var onFireballPress = function () {
