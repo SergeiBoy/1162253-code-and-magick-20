@@ -11,11 +11,27 @@
   var fireball = document.querySelector('.setup-fireball-wrap');
   var fireballInput = fireball.querySelector('input[name="fireball-color"]');
 
+  var colors = {
+    coatColor: 'rgb(101, 137, 164)',
+    eyesColor: 'black',
+  };
+
+  var sortWizardsOnCoatChange = window.debounce(function (color) {
+    colors.coatColor = color;
+    window.renderWizards.sortWizards(window.loadedWizards);
+  });
+
+  var sortWizardsOnEyesChange = window.debounce(function (color) {
+    colors.eyesColor = color;
+    window.renderWizards.sortWizards(window.loadedWizards);
+  });
+
   var onWizardCoatPress = function () {
     var pickedColor = window.wizardsDescription.COAT_COLORS[pickColor % window.wizardsDescription.COAT_COLORS.length];
     wizardCoat.style.fill = pickedColor;
     wizardCoatInput.value = pickedColor;
     pickColor = (pickColor + 1) % 100;
+    sortWizardsOnCoatChange(pickedColor);
   };
 
   var onWizardEyesPress = function () {
@@ -23,6 +39,7 @@
     wizardEyes.style.fill = pickedColor;
     wizardEyesInput.value = pickedColor;
     pickColor = (pickColor + 1) % 100;
+    sortWizardsOnEyesChange(pickedColor);
   };
 
   var onFireballPress = function () {
@@ -39,5 +56,6 @@
     onWizardCoatPress: onWizardCoatPress,
     onWizardEyesPress: onWizardEyesPress,
     onFireballPress: onFireballPress,
+    colors: colors,
   };
 })();
